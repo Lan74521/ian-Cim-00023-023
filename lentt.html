@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        form, .content-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn-main {
+            background-color: #4a1a70;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-main:hover {
+            background-color: #294e2e;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Employee Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('registration')">Registration</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('login')">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('finance')">Finance</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('departments')">Departments</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('procurement')">Procurement</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" onclick="loadModule('leave')">Leave</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="main-content" class="content-section"></div>
+
+    <!-- Registration Module -->
+    <div id="registration" style="display: none;">
+        <h2>Employee Registration</h2>
+        <form>
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" id="employeeId" name="employeeId" class="form-control" required>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+            <label for="department">Department:</label>
+            <select id="department" name="department" class="form-control">
+                <option value="HR">HR</option>
+                <option value="Finance">Finance</option>
+                <option value="Procurement">Procurement</option>
+            </select>
+            <label for="role">Role:</label>
+            <input type="text" id="role" name="role" class="form-control" required>
+            <label for="joiningDate">Date of Joining:</label>
+            <input type="date" id="joiningDate" name="joiningDate" class="form-control" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+            <button type="submit" class="btn-main mt-3">Register</button>
+        </form>
+    </div>
+
+    <!-- Login Module -->
+    <div id="login" style="display: none;">
+        <h2>Employee Login</h2>
+        <form>
+            <label for="employeeId">Employee ID:</label>
+            <input type="text" id="employeeId" name="employeeId" class="form-control" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+            <button type="submit" class="btn-main mt-3">Login</button>
+        </form>
+    </div>
+
+    <!-- Finance Module -->
+    <div id="finance" style="display: none;">
+        <h2>Finance</h2>
+        <button class="btn-main" onclick="displayFinanceContent('payslip')">View Payslip</button>
+        <button class="btn-main" onclick="displayFinanceContent('taxInfo')">Tax Information</button>
+        <button class="btn-main" onclick="displayFinanceContent('expenses')">Expense Reports</button>
+        <div id="finance-content" class="mt-3"></div>
+    </div>
+
+    <!-- Departments Module -->
+    <div id="departments" style="display: none;">
+        <h2>Departments</h2>
+        <button class="btn-main" onclick="displayDepartmentsContent('list')">List Departments</button>
+        <button class="btn-main" onclick="displayDepartmentsContent('add')">Add Department</button>
+        <div id="departments-content" class="mt-3"></div>
+    </div>
+
+    <!-- Procurement Module -->
+    <div id="procurement" style="display: none;">
+        <h2>Procurement</h2>
+        <button class="btn-main" onclick="displayProcurementContent('vendors')">Approved Vendors</button>
+        <button class="btn-main" onclick="displayProcurementContent('requests')">Create Purchase Request</button>
+        <div id="procurement-content" class="mt-3"></div>
+    </div>
+
+    <!-- Leave Module -->
+    <div id="leave" style="display: none;">
+        <h2>Leave Management</h2>
+        <button class="btn-main" onclick="displayLeaveContent('apply')">Apply for Leave</button>
+        <button class="btn-main" onclick="displayLeaveContent('status')">Approval Status</button>
+        <div id="leave-content" class="mt-3"></div>
+    </div>
+
+    <script>
+        function loadModule(module) {
+            document.getElementById("main-content").innerHTML = document.getElementById(module).innerHTML;
+        }
+
+        function displayFinanceContent(content) {
+            document.getElementById("finance-content").innerText = "Showing " + content + " in Finance Module";
+        }
+        function displayDepartmentsContent(content) {
+            document.getElementById("departments-content").innerText = "Showing " + content + " in Departments Module";
+        }
+        function displayProcurementContent(content) {
+            document.getElementById("procurement-content").innerText = "Showing " + content + " in Procurement Module";
+        }
+        function displayLeaveContent(content) {
+            document.getElementById("leave-content").innerText = "Showing " + content + " in Leave Module";
+        }
+    </script>
+
+
+</body>
+</html>
